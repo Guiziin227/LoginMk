@@ -4,12 +4,12 @@ CREATE TABLE "users" (
 	"last_name" varchar(50) NOT NULL,
 	"email" varchar(50) NOT NULL,
 	"password" varchar(25) NOT NULL,
-	"cellphone" varchar(15),
-	"tax_id" varchar(14),
+	"cellphone" varchar(15) NOT NULL,
+	"tax_id" varchar(14) NOT NULL,
 	"is_paid" boolean DEFAULT false NOT NULL,
 	"paid_until" varchar(30),
 	"pix_qr_code_id" varchar(100),
-	"created_at" varchar(30) NOT NULL,
-	"updated_at" varchar(30) NOT NULL,
+	"created_at" timestamp with time zone DEFAULT now() NOT NULL,
+	"updated_at" timestamp with time zone DEFAULT now() NOT NULL,
 	CONSTRAINT "users_email_unique" UNIQUE("email")
 );

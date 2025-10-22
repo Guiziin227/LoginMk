@@ -1,5 +1,5 @@
 {
-  "id": "5922c706-b5c0-419e-9b12-4d37ea1923d2",
+  "id": "0ac5e023-7bcd-4324-8491-b131cc847684",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -53,13 +53,13 @@
           "name": "cellphone",
           "type": "varchar(15)",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "tax_id": {
           "name": "tax_id",
           "type": "varchar(14)",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "is_paid": {
           "name": "is_paid",
@@ -82,15 +82,17 @@
         },
         "created_at": {
           "name": "created_at",
-          "type": "varchar(30)",
+          "type": "timestamp with time zone",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "default": "now()"
         },
         "updated_at": {
           "name": "updated_at",
-          "type": "varchar(30)",
+          "type": "timestamp with time zone",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "default": "now()"
         }
       },
       "indexes": {},

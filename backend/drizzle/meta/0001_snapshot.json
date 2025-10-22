@@ -1,6 +1,6 @@
 {
-  "id": "420e609f-eb8e-4271-a850-b4f326fb6eb8",
-  "prevId": "5922c706-b5c0-419e-9b12-4d37ea1923d2",
+  "id": "995d0533-f948-4f86-ad40-e1cf1297ad52",
+  "prevId": "0ac5e023-7bcd-4324-8491-b131cc847684",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -45,7 +45,7 @@
         },
         "password": {
           "name": "password",
-          "type": "varchar(25)",
+          "type": "varchar(75)",
           "primaryKey": false,
           "notNull": true
         },
@@ -82,15 +82,17 @@
         },
         "created_at": {
           "name": "created_at",
-          "type": "varchar(30)",
+          "type": "timestamp with time zone",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "default": "now()"
         },
         "updated_at": {
           "name": "updated_at",
-          "type": "varchar(30)",
+          "type": "timestamp with time zone",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "default": "now()"
         }
       },
       "indexes": {},
