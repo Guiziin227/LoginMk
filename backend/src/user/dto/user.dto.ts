@@ -1,6 +1,6 @@
 import { IsEmail, IsPhoneNumber, IsTaxId } from 'class-validator';
 
-export class createUserDto {
+export class CreateUserDto {
   firstName: string;
   lastName: string;
 
