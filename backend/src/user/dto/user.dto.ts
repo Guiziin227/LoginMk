@@ -14,9 +14,4 @@ export class createUserDto {
 
   @IsTaxId('pt-BR')
   taxId: string;
-  isPaid: boolean;
-  paidUntil?: string;
-  pixQrCodeId?: string;
-  createdAt: Date;
-  updatedAt: Date;
 }
