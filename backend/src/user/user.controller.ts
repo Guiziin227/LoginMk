@@ -18,11 +18,13 @@ export class UserController {
     return this.userService.findAll();
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   async findById(@Param('id') id: number) {
     return this.userService.findById(id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get()
   async findByEmail(@Body('email') email: string) {
     return this.userService.findByEmail({ email });
