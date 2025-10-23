@@ -3,7 +3,7 @@ import { DATABASE_CONNECTION } from '../database/database-connection';
 import { NodePgDatabase } from 'drizzle-orm/node-postgres';
 import { CreateUserDto } from './dto/user.dto';
 import * as bcrypt from 'bcrypt';
-import { eq, InferModel, or } from 'drizzle-orm';
+import { eq, InferModel, or, lt, and } from 'drizzle-orm';
 import { ConflictException } from '@nestjs/common';
 import { usersTable } from './schema/schema';
 
@@ -88,5 +88,43 @@ export class UserService {
     console.log(users);
 
     return users;
+  }
+
+  async updatePaymentStatus(
+    userId: number,
+    isPaid: boolean,
+    paidUntil: Date,
+  ): Promise<User> {
+    const user = await this.findById(userId);
+
+    if (!user) {
+      throw new NotFoundException('Usuário não encontrado.');
+    }
+
+    paidUntil = new Date(paidUntil);
+    paidUntil.setDate(paidUntil.getDate() + 30);
+
+    const [updatedUser] = await this.database
+      .update(usersTable)
+      .set({
+        is_paid: isPaid,
+        paid_until: paidUntil,
+        updated_At: new Date(),
+      })
+      .where(eq(usersTable.id, userId))
+      .returning();
+
+    return updatedUser;
+  }
+
+  async findExpiredPaidUsers(): Promise<User[]> {
+    const now = new Date();
+
+    const expiredUsers = await this.database
+      .select()
+      .from(usersTable)
+      .where(and(eq(usersTable.is_paid, true), lt(usersTable.paid_until, now)));
+
+    return expiredUsers;
   }
 }
