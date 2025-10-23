@@ -12,7 +12,7 @@ export const usersTable = pgTable('users', {
   cellphone: varchar({ length: 15 }).notNull(),
   tax_id: varchar({ length: 14 }).notNull(),
   is_paid: boolean().notNull().default(false),
-  paid_until: varchar({ length: 30 }),
+  paid_until: timestamp('paid_until', { withTimezone: true }),
   pix_qr_code_id: varchar({ length: 100 }),
   created_At: timestamp('created_at', { withTimezone: true })
     .notNull()

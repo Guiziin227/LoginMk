@@ -1,5 +1,5 @@
 {
-  "id": "0ac5e023-7bcd-4324-8491-b131cc847684",
+  "id": "e237588d-430f-4a7a-ae68-a8aaa257d6fa",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -45,7 +45,7 @@
         },
         "password": {
           "name": "password",
-          "type": "varchar(25)",
+          "type": "varchar(75)",
           "primaryKey": false,
           "notNull": true
         },
@@ -70,7 +70,7 @@
         },
         "paid_until": {
           "name": "paid_until",
-          "type": "varchar(30)",
+          "type": "timestamp with time zone",
           "primaryKey": false,
           "notNull": false
         },
