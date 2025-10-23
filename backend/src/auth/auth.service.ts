@@ -46,10 +46,22 @@ export class AuthService {
 
   async register(dto: CreateUserDto) {
     const newUser = await this.userService.create(dto);
+    console.log('New user created:', newUser);
     const { password, ...userWithoutPassword } = newUser;
     void password;
 
-    return userWithoutPassword;
+    const payload = {
+      sub: newUser.id,
+      email: newUser.email,
+      taxId: newUser.tax_id,
+    };
+
+    const token = this.jwtService.sign(payload);
+
+    return {
+      access_token: token,
+      user: userWithoutPassword,
+    };
   }
 
   async validateUser(userId: number) {

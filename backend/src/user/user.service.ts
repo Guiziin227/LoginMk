@@ -47,6 +47,8 @@ export class UserService {
       })
       .returning();
 
+    console.log('User created with ID:', newUser.id);
+
     return newUser;
   }
 
