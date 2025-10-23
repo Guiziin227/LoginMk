@@ -31,7 +31,7 @@ export class UserService {
       );
     }
 
-    const hashedPassword = bcrypt.hashSync(createUserDto.password, 10);
+    const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
 
     const [newUser] = await this.database
       .insert(usersTable)
