@@ -3,9 +3,11 @@ import { DATABASE_CONNECTION } from '../database/database-connection';
 import { NodePgDatabase } from 'drizzle-orm/node-postgres';
 import { CreateUserDto } from './dto/user.dto';
 import * as bcrypt from 'bcrypt';
-import { eq, or } from 'drizzle-orm';
+import { eq, InferModel, or } from 'drizzle-orm';
 import { ConflictException } from '@nestjs/common';
 import { usersTable } from './schema/schema';
+
+type User = InferModel<typeof usersTable>;
 
 @Injectable()
 export class UserService {
@@ -14,7 +16,7 @@ export class UserService {
     private readonly database: NodePgDatabase<{ users: typeof usersTable }>,
   ) {}
 
-  async create(createUserDto: CreateUserDto) {
+  async create(createUserDto: CreateUserDto): Promise<User> {
     const existingUser = await this.database
       .select()
       .from(usersTable)
@@ -48,7 +50,7 @@ export class UserService {
     return newUser;
   }
 
-  async findById(id: number) {
+  async findById(id: number): Promise<User> {
     const [verify] = await this.database
       .select()
       .from(usersTable)
@@ -61,7 +63,11 @@ export class UserService {
     return verify;
   }
 
-  async findByEmail({ email }: { email: CreateUserDto['email'] }) {
+  async findByEmail({
+    email,
+  }: {
+    email: CreateUserDto['email'];
+  }): Promise<User> {
     const [user] = await this.database
       .select()
       .from(usersTable)
@@ -74,7 +80,7 @@ export class UserService {
     return user;
   }
 
-  async findAll() {
+  async findAll(): Promise<User[]> {
     const users = await this.database.query.users.findMany();
 
     console.log(users);
